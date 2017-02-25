@@ -22,7 +22,8 @@ set virtualedit=onemore
 set showmode
 set cursorline
 
-let g:netrw_browse_split=4      " Open file in previous buffer
+"let g:netrw_browse_split=4      " Open file in previous buffer
+
 
 " swap between buffers
 map <C-k><C-o> <c-w>w
@@ -46,17 +47,6 @@ if has('cmdline_info')
 	set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
 	set showcmd                 " Show partial commands in status line and
 								" Selected characters/lines in visual mode
-endif
-
-if has('statusline')
-	set laststatus=2
-
-	" Broken down into easily includeable segments
-	set statusline=%<%f\                     " Filename
-	set statusline+=%w%h%m%r                 " Options
-	set statusline+=\ [%{&ff}/%Y]            " Filetype
-	set statusline+=\ [%{getcwd()}]          " Current dir
-	set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 
 set linespace=0                 " No extra spaces between rows
@@ -96,3 +86,34 @@ map <leader>n :NERDTree<CR>
 	endif
 " }
 
+
+" status line color change and commands
+if has('statusline')
+	function! InsertStatuslineColor(mode)
+	  if a:mode == 'i'
+		hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+	  elseif a:mode == 'r'
+		hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+	  else
+		hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+	  endif
+	endfunction
+
+	au InsertEnter * call InsertStatuslineColor(v:insertmode)
+	au InsertLeave * hi statusline guibg=DarkGrey ctermfg=4 guifg=White ctermbg=15
+
+	" default the statusline to green when entering Vim
+	hi statusline guibg=DarkGrey ctermfg=4 guifg=Black ctermbg=15
+
+	set laststatus=2
+
+	" Broken down into easily includeable segments
+	set statusline=%<%f\                     " Filename
+	set statusline+=%w%h%m%r                 " Options
+	set statusline+=\ [%{&ff}/%Y]            " Filetype
+	set statusline+=\ [%{getcwd()}]          " Current dir
+	set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+
+	set statusline+=\ %=                        " align left
+	set statusline+=\ Buffer:%n                    " Buffer number
+endif
