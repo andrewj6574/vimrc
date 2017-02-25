@@ -1,3 +1,4 @@
+"" used https://github.com/spf13/spf13-vim/blob/3.0/.vimrc for reference
 set nocompatible
 set backspace=2
 
@@ -23,9 +24,22 @@ set cursorline
 
 let g:netrw_browse_split=4      " Open file in previous buffer
 
-nnoremap <silent> <C-k> <c-w>l
+" swap between buffers
+map <C-k><C-o> <c-w>w
+" show buffers
+nnoremap <leader>b :buffers<CR>:b<Space>
+" shwo buffers split screen 
+nnoremap <leader>v :buffers<CR>:vsp <bar> :b<Space>
+
+" remap to beginning of line
+nnoremap <C-a> 0
+inoremap <C-e> <Esc>A
+" remap to end of line
+nnoremap <C-e> $
+inoremap <C-a> <Esc>I
 map <leader>t :echo 'Current time is ' . strftime('%c')<CR>
 
+set pastetoggle=<leader>p
 
 if has('cmdline_info')
 	set ruler                   " Show the ruler
@@ -60,15 +74,7 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
-"set foldenable                  " Auto fold code
-"set list
-"set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-
-"if !exists('g:spf13_leader')
-"	let mapleader = '\'
-"else
-"	let mapleader=g:spf13_leader
-"endif
+set foldenable                  " Auto fold code
 
 " open nerd tree
 map <leader>n :NERDTree<CR>
@@ -89,6 +95,4 @@ map <leader>n :NERDTree<CR>
 		let g:nerdtree_tabs_open_on_gui_startup=0
 	endif
 " }
-
-
 
