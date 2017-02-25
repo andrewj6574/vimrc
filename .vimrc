@@ -34,9 +34,11 @@ nnoremap <leader>v :buffers<CR>:vsp <bar> :b<Space>
 
 " remap to beginning of line
 nnoremap <C-a> 0
+vnoremap <C-a> 0
 inoremap <C-e> <Esc>A
 " remap to end of line
 nnoremap <C-e> $
+vnoremap <C-e> $
 inoremap <C-a> <Esc>I
 map <leader>t :echo 'Current time is ' . strftime('%c')<CR>
 
@@ -66,8 +68,11 @@ set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 
+"comment/uncomment
+vnoremap <C-k><C-k> :norm<Space>
+
 " open nerd tree
-map <leader>n :NERDTree<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " NerdTree {
 	if isdirectory(expand("~/.vim/plugin/nerdtree"))
@@ -117,3 +122,4 @@ if has('statusline')
 	set statusline+=\ %=                        " align left
 	set statusline+=\ Buffer:%n                    " Buffer number
 endif
+
