@@ -63,6 +63,7 @@ set shiftwidth=4
 set autoindent
 set softtabstop=4               " Let backspace delete indent
 set splitright                  " Puts new vsplit windows to the right of the current
+set relativenumber
 
 " line numbers
 set number
@@ -126,6 +127,8 @@ set foldmethod=indent
 "set foldmethod=manual
 "set foldlevelstart=1
 
+" jj as escape character 
+inoremap jj <ESC>	
 " save state of vim on exit and load state on enter
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview 
@@ -192,4 +195,18 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 "	set statusline+=\ %=                        " align left
 "	set statusline+=\ Buffer:%n                    " Buffer number
 "endif
-"
+
+function! NeatFoldText()
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+
+set foldtext=NeatFoldText()
+
+
