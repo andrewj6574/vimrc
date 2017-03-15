@@ -65,6 +65,18 @@ set softtabstop=4               " Let backspace delete indent
 set splitright                  " Puts new vsplit windows to the right of the current
 set relativenumber
 
+" move lines up and down
+nnoremap <Esc>[1;3A :m .-2<CR>==
+nnoremap <Esc>[1;3B :m .+1<CR>==
+inoremap <Esc>[1;3A <Esc>:m .-2<CR>==gi
+inoremap <Esc>[1;3B <Esc>:m .+1<CR>==gi
+vnoremap <Esc>[1;3A :m '<-2<CR>gv=gv
+vnoremap <Esc>[1;3B :m '>+1<CR>gv=gv
+
+" tabbing in visual mode
+vnoremap <Tab> ><CR>gv
+vnoremap <S-Tab> <<CR>gv
+
 " line numbers
 set number
 syntax on
@@ -96,6 +108,7 @@ nnoremap <C-e> $
 vnoremap <C-e> $
 inoremap <C-a> <Esc>I
 map <leader>t :echo 'Current time is ' . strftime('%c')<CR>
+vnoremap <leader>y "+y<CR>
 
 set pastetoggle=<leader>p
 
