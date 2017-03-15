@@ -70,8 +70,15 @@ nnoremap <Esc>[1;3A :m .-2<CR>==
 nnoremap <Esc>[1;3B :m .+1<CR>==
 inoremap <Esc>[1;3A <Esc>:m .-2<CR>==gi
 inoremap <Esc>[1;3B <Esc>:m .+1<CR>==gi
-vnoremap <Esc>[1;3A :m '<-2<CR>gv=gv
-vnoremap <Esc>[1;3B :m '>+1<CR>gv=gv
+vnoremap <Esc>[1;3A :m '<-2<CR>gv
+vnoremap <Esc>[1;3B :m '>+1<CR>gv
+
+nnoremap <Esc>k :m .-2<CR>==
+nnoremap <Esc>j :m .+1<CR>==
+inoremap <Esc>k <Esc>:m .-2<CR>==gi
+inoremap <Esc>j <Esc>:m .+1<CR>==gi
+vnoremap <Esc>k :m '<-2<CR>gv
+vnoremap <Esc>j :m '>+1<CR>gv
 
 " tabbing in visual mode
 vnoremap <Tab> ><CR>gv
