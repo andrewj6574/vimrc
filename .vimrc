@@ -96,6 +96,9 @@ set cursorline
 
 "let g:netrw_browse_split=4      " Open file in previous buffer
 
+"find in current directory
+nnoremap <C-k><C-f> :grep -RF '<cword>' *<CR> :cw<CR>
+
 " swap to next buffer (hidden)
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-b> :bprevious<CR>
