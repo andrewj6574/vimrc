@@ -210,6 +210,9 @@ autocmd VimEnter * NERDTree
 " " Go to previous (last accessed) window.
 autocmd VimEnter * wincmd p" Start NERDTree
 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") 
+      \ && b:NERDTree.isTabTree()) | q | endif
+
 " status line color change and commands
 "if has('statusline')
 "	function! InsertStatuslineColor(mode)
