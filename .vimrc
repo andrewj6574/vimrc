@@ -34,6 +34,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+Plugin 'https://github.com/scrooloose/nerdtree'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -51,6 +53,9 @@ filetype plugin indent on    " required
 
 " Disable YouCompleteMe
 "let g:loaded_youcompleteme=1
+
+set visualbell
+set t_vb=
 
 set backspace=2
 
@@ -122,11 +127,15 @@ vnoremap <leader>y "+y<CR>
 
 set pastetoggle=<leader>p
 
+map <A-Right> <C-W>l
+map <A-Left> <C-W>h
+
 if has('cmdline_info')
 	set ruler                   " Show the ruler
 	set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
 	set showcmd                 " Show partial commands in status line and
 								" Selected characters/lines in visual mode
+								" 
 endif
 
 set linespace=0                 " No extra spaces between rows
@@ -171,7 +180,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " NerdTree {
-	if isdirectory(expand("~/.vim/plugin/nerdtree"))
+	if isdirectory(expand("~/.vim/bundle/nerdtree"))
 		map <C-e> <plug>NERDTreeTabsToggle<CR>
 		map <leader>e :NERDTreeFind<CR>
 		nmap <leader>nt :NERDTreeFind<CR>
@@ -179,14 +188,27 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 		let NERDTreeShowBookmarks=1
 		let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 		let NERDTreeChDirMode=0
-		let NERDTreeQuitOnOpen=1
+		let NERDTreeQuitOnOpen=0
 		let NERDTreeMouseMode=2
 		let NERDTreeShowHidden=1
 		let NERDTreeKeepTreeInNewTab=1
 		let g:nerdtree_tabs_open_on_gui_startup=0
+		let g:nerdtree_tabs_open_on_console_startup=1
 	endif
 " }
 
+function! StartUp()
+	if 0 == argc()
+		NERDTree
+	end
+endfunction
+
+autocmd VimEnter * call StartUp()
+
+" Start NERDTree
+autocmd VimEnter * NERDTree
+" " Go to previous (last accessed) window.
+autocmd VimEnter * wincmd p" Start NERDTree
 
 " status line color change and commands
 "if has('statusline')
